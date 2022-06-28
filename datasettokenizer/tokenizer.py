@@ -1,5 +1,7 @@
+block_size = 128
 
 def group_texts(examples):
+    global block_size
     concatenated_examples = {k: sum(examples[k], []) for k in examples.keys()}
     total_length = len(concatenated_examples[list(examples.keys())[0]])
     total_length = (total_length // block_size) * block_size
@@ -11,6 +13,7 @@ def group_texts(examples):
     return result
 
 def tokenize_dataset(lm_datasets, tokenizer, block_size):
+    global block_size
     tokenize_function = lambda examples: tokenizer(examples["text"])
     tokenized_datasets = lm_datasets.map(tokenize_function, batched=True, num_proc=4, remove_columns=["text"])
     lm_datasets = tokenized_datasets.map(
