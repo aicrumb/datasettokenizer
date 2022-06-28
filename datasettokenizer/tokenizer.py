@@ -1,5 +1,5 @@
 
-def group_texts(examples, block_size):
+def group_texts(examples):
     concatenated_examples = {k: sum(examples[k], []) for k in examples.keys()}
     total_length = len(concatenated_examples[list(examples.keys())[0]])
     total_length = (total_length // block_size) * block_size
