@@ -10,7 +10,7 @@ def group_texts(examples, block_size):
     result["labels"] = result["input_ids"].copy()
     return result
 
-def tokenize_dataset(dataset, tokenizer, block_size):
+def tokenize_dataset(lm_datasets, tokenizer, block_size):
     tokenize_function = lambda examples: tokenizer(examples["text"])
     tokenized_datasets = lm_datasets.map(tokenize_function, batched=True, num_proc=4, remove_columns=["text"])
     lm_datasets = tokenized_datasets.map(
